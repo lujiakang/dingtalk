@@ -159,8 +159,8 @@ public class AnnualLeaveServiceImpl implements AnnualLeaveService {
         String tag = "";
         for (int i=0; i<formComponentValues.size(); i++){
             JSONObject pojo = (JSONObject)formComponentValues.get(i);
-            String id = pojo.getString("id");
-            if ("DDHolidayField-JKDPOJN2".equalsIgnoreCase(id)){
+            String component_type = pojo.getString("component_type");
+            if ("DDHolidayField".equalsIgnoreCase(component_type)){
                 JSONObject extValue = pojo.getJSONObject("ext_value");
                 //Object objectExtension = extValue.get("extension");
                 JSONObject extension = extValue.getJSONObject("extension");
@@ -274,13 +274,13 @@ public class AnnualLeaveServiceImpl implements AnnualLeaveService {
         //默认返回success明文。
         String responseEncryMsg = "success";
         logger.info("eventType: "+eventType);
-        if(SuitePushType.BPMS_TASK_CHANGE.getKey().equals(eventType)){
+        if(SuitePushType.BPMS_TASK_CHANGE.getKey().equalsIgnoreCase(eventType)){
             logger.info("BPMS_TASK_CHANGE: "+callbackMsgJson);
-        } else if (SuitePushType.BPMS_INSTANCE_CHANGE.getKey().equals(eventType)){
+        } else if (SuitePushType.BPMS_INSTANCE_CHANGE.getKey().equalsIgnoreCase(eventType)){
             logger.info("BPMS_INSTANCE_CHANGE: "+callbackMsgJson);
             //年假处理入口
            handlerCallback(callbackMsgJson);
-        } else if (SuitePushType.CHECK_URL.getKey().equals(eventType)){
+        } else if (SuitePushType.CHECK_URL.getKey().equalsIgnoreCase(eventType)){
             logger.info("CHECK_URL: "+callbackMsgJson);
         }else{
             logger.info("corpId", corpId);
